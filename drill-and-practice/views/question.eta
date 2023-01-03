@@ -1,0 +1,60 @@
+<% layout('./layouts/layout.eta') %>
+<div class="container row">
+  <% if (it.question) { %>
+  <div class="col align-items-start">
+
+    <h6> <%= it.topic.name %></h6>
+    <% if (it.options && it.options.length > 0) { %>
+
+    <h2><%= it.question.question_text %></h2>
+    <ul class="list-group list-group-flush">
+      <% it.options.forEach(option => { %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= option.option_text %>
+        <%= option.is_correct %>
+        <form action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options/<%= option.id %>/delete" method="POST">
+          <input type="submit" class="btn btn-secondary" value="Delete option" />
+        </form>
+      </li>
+      <% }); %>
+    </ul>
+
+    <% } else { %>
+    <p>No options yet</p>
+    <form action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/delete" method="POST">
+      <input type="submit" class="btn btn-secondary" value="Delete question" />
+    </form>
+
+    <% } %>
+  </div>
+  <div class="col align-items-start">
+
+    <h4>Add an option to the question</h4>
+    <form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options">
+      <div class="form-group">
+        <label for="option_text">Option text</label><br />
+        <input type="text" name="option_text" id="option_text" /><br />
+      </div>
+      <div class="form-group">
+        <label for="is_correct">Is correct</label><br />
+        <input type="checkbox" name="is_correct" id="is_correct" />
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Add" />
+      </div>
+
+    </form>
+    <% } else { %>
+    <h1>No such question</h1>
+    <% } %>
+    <% if (it.validationErrors) { %>
+    <ul>
+      <% Object.keys(it.validationErrors).forEach((attribute) => { %>
+      <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
+      <li><%= err %></li>
+      <% }); %>
+      <% }); %>
+    </ul>
+    <% } %>
+  </div>
+</div>

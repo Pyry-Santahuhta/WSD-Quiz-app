@@ -1,0 +1,25 @@
+<% layout('./layouts/layout.eta') %>
+<h1>Incorrect :/</h1>
+
+<% if (it.correctAnswers && it.correctAnswers.length > 1) { %>
+
+<h2>The correct answers were:</h2>
+<ul class="list-group list-group-flush">
+  <% it.correctAnswers.forEach(answer => { %>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <%= answer.option_text %>
+  </li>
+  <% }); %>
+</ul>
+
+<% } else if(it.correctAnswers && it.correctAnswers.length === 1) { %>
+<h2>The correct answer was:</h2>
+<%= it.correctAnswers[0].option_text %>
+
+<% } else { %>
+<p>But actually there were no right options :D</p>
+<% } %>
+
+<form action="/quiz/<%= it.tId %>" method="GET">
+  <input type="submit" class="btn btn-secondary" value="Next question" />
+</form>

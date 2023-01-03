@@ -1,0 +1,10 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Quizbro</h1>
+
+<p>This app is a quiz app meant for creating and answering quizes</p>
+
+<p>The site currently has</p>
+<%= it.topicCount %> Topics,
+<%= it.questionCount %> Questions and
+<%= it.answerCount %> Answers

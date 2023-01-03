@@ -1,0 +1,51 @@
+<% layout('./layouts/layout.eta') %>
+<div class="container row">
+  <div class="col align-items-start">
+
+    <% if (it.topic) { %>
+    <h1><%= it.topic.name %></h1>
+    <h2>Topic questions: </h2>
+    <% if (it.questions && it.questions.length > 0) { %>
+
+    <ul class="list-group list-group-flush">
+      <% it.questions.forEach(question => { %>
+      <a href="/topics/<%= question.topic_id %>/questions/<%= question.id %>">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= question.question_text %>
+        </li>
+      </a>
+      <% }); %>
+    </ul>
+
+    <% } else { %>
+
+    <p>No questions yet</p>
+
+    <% } %>
+  </div>
+  <div class="col align-items-start">
+
+    <h2>Add a question</h2>
+
+    <form method="POST" action="/topics/<%= it.topic.id %>/questions">
+      <div class="form-group">
+        <label for="question_text">Question text</label>
+
+        <input type="text" name="question_text" id="question_text" /><br />
+      </div>
+      <input type="submit" class="btn btn-primary" value="Add" />
+    </form>
+    <% } else { %>
+    <h1>No such topic</h1>
+    <% } %>
+    <% if (it.validationErrors) { %>
+    <ul>
+      <% Object.keys(it.validationErrors).forEach((attribute) => { %>
+      <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
+      <li><%= err %></li>
+      <% }); %>
+      <% }); %>
+    </ul>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<% layout('./layouts/layout.eta') %>
+<div class="container row">
+  <div class="col align-items-start">
+
+    <h1>Quiz Topics</h1>
+
+    <h2>Available:</h2>
+
+    <% if (it.topics && it.topics.length > 0) { %>
+
+    <ul class="list-group list-group-flush">
+      <% it.topics.forEach(topic => { %>
+      <a href="/topics/<%= topic.id %>">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= topic.name %>
+          <form action="/topics/<%= topic.id %>/delete" method="POST">
+            <input type="submit" class="btn btn-secondary" value="Delete topic" />
+          </form>
+        </li>
+      </a>
+      <% }); %>
+    </ul>
+
+    <% } else { %>
+
+    <p>No topics yet</p>
+
+    <% } %>
+  </div>
+  <div class="col align-items-start">
+    <h2>Add a topic</h2>
+
+    <form method="POST" action="/topics">
+      <label for="name">Name</label>
+      <div class="form-group">
+        <input type="text" placeholder="Enter the topic name" id="name" name="name" /><br />
+      </div>
+      <input type="submit" class="btn btn-primary" value="Add" />
+
+    </form>
+    <% if (it.validationErrors) { %>
+    <ul>
+      <% Object.keys(it.validationErrors).forEach((attribute) => { %>
+      <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
+      <li><%= err %></li>
+      <% }); %>
+      <% }); %>
+    </ul>
+    <% } %>
+
+  </div>
+</div>

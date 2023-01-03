@@ -1,0 +1,20 @@
+<% layout('./layouts/layout.eta') %>
+<h1>Quizbro</h1>
+<h5>Pick a quiz to start!</h5>
+
+<% if (it.topics && it.topics.length > 0) { %>
+
+<ul class="list-group list-group-flush">
+  <% it.topics.forEach(topic => { %>
+  <a href="/quiz/<%= topic.id %>">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <%= topic.name %>
+    </li>
+  </a>
+  <% }); %>
+</ul>
+
+<% } else { %>
+
+<p>No topics yet</p>
+<% } %>

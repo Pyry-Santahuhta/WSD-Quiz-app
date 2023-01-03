@@ -1,0 +1,5 @@
+<% layout('./layouts/layout.eta') %>
+<h1>Correct!</h1>
+<form action="/quiz/<%= it.tId %>" method="GET">
+  <input type="submit" class="btn btn-secondary" value="Next question" />
+</form>
