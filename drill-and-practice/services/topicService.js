@@ -2,7 +2,7 @@ import { executeQuery } from "../database/database.js";
 
 const getTopics = async () => {
   const res = await executeQuery(
-    `SELECT * FROM topics`,
+    `SELECT * FROM topics ORDER BY name ASC`,
   );
   return res.rows;
 };

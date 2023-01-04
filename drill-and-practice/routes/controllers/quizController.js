@@ -15,8 +15,11 @@ const showTopics = async ({ render, user }) => {
 
 const getRandomQuestion = async ({ params, response }) => {
   const question = await quizService.getRandomQuestion(`${params.tId}`);
-  console.log(question);
-  response.redirect(`/quiz/${params.tId}/questions/${question.id}`);
+  if (question) {
+    response.redirect(`/quiz/${params.tId}/questions/${question.id}`);
+  } else {
+    response.redirect(`/quiz`);
+  }
 };
 
 const showQuestion = async ({ params, render, user }) => {

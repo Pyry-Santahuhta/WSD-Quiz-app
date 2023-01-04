@@ -1,1 +1,0 @@
-You could add static content here. Note that you cannot currently submit binary data.

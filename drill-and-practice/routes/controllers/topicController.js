@@ -15,6 +15,7 @@ const showTopics = async ({ render, user }) => {
   const loggedIn = tools.getLoggedin(user);
   const data = {
     loggedIn: loggedIn,
+    user: user,
     topics: topics,
   };
   render("topics.eta", data);
@@ -55,17 +56,21 @@ const addTopic = async ({ request, response, user, render }) => {
 
     render("topics.eta", data);
   } else {
-    await topicService.addTopic(
-      user.id,
-      bodyParams.get("name"),
-    );
-    response.redirect("/topics");
+    if (user.admin) {
+      await topicService.addTopic(
+        user.id,
+        bodyParams.get("name"),
+      );
+      response.redirect("/topics");
+    }
   }
 };
 
-const deleteTopic = async ({ params, response }) => {
-  await topicService.deleteTopic(`${params.id}`);
-  response.redirect(`/topics`);
+const deleteTopic = async ({ params, response, user }) => {
+  if (user.admin) {
+    await topicService.deleteTopic(`${params.id}`);
+    response.redirect(`/topics`);
+  }
 };
 
 const showQuestion = async ({ params, render, user }) => {

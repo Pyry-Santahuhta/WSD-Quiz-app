@@ -31,9 +31,9 @@
       <div class="form-group">
         <label for="question_text">Question text</label>
 
-        <input type="text" name="question_text" id="question_text" /><br />
+        <input type="text" placeholder="Add a question" name="question_text" id="question_text" /><br />
       </div>
-      <input type="submit" class="btn btn-primary" value="Add" />
+      <input type="submit" class="btn btn-primary" id="add" value="Add" />
     </form>
     <% } else { %>
     <h1>No such topic</h1>

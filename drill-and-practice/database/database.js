@@ -1,9 +1,9 @@
-import { Client } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
-
+/* Local database setup
 const client = new Client({
-  database: "database",
-  user: "username",
+  database: "",
+  user: "",
 });
+import { Client } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
 const executeQuery = async (query, params) => {
   const response = {};
   try {
@@ -26,13 +26,19 @@ const executeQuery = async (query, params) => {
 };
 
 export { executeQuery };
+*/
 
-/*
 import { Pool } from "../deps.js";
-
 const CONCURRENT_CONNECTIONS = 2;
-const connectionPool = new Pool({}, CONCURRENT_CONNECTIONS);
-
+let connectionPool;
+if (Deno.env.get("DATABASE_URL")) {
+  connectionPool = new Pool(
+    Deno.env.get("DATABASE_URL"),
+    CONCURRENT_CONNECTIONS,
+  );
+} else {
+  connectionPool = new Pool({}, CONCURRENT_CONNECTIONS);
+}
 const executeQuery = async (query, params) => {
   const response = {};
   let client;
@@ -58,6 +64,3 @@ const executeQuery = async (query, params) => {
 };
 
 export { executeQuery };
-
-
-*/

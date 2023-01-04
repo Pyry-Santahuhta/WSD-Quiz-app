@@ -13,9 +13,13 @@
       <a href="/topics/<%= topic.id %>">
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <%= topic.name %>
+           <% if (it.user.admin) { %>
+
           <form action="/topics/<%= topic.id %>/delete" method="POST">
-            <input type="submit" class="btn btn-secondary" value="Delete topic" />
+            <input type="submit" id="delete" class="btn btn-secondary" value="Delete topic" />
           </form>
+    <% } %>
+
         </li>
       </a>
       <% }); %>
@@ -27,6 +31,9 @@
 
     <% } %>
   </div>
+
+    <% if (it.user.admin) { %>
+
   <div class="col align-items-start">
     <h2>Add a topic</h2>
 
@@ -35,7 +42,7 @@
       <div class="form-group">
         <input type="text" placeholder="Enter the topic name" id="name" name="name" /><br />
       </div>
-      <input type="submit" class="btn btn-primary" value="Add" />
+      <input type="submit" id="add" class="btn btn-primary" value="Add" />
 
     </form>
     <% if (it.validationErrors) { %>
@@ -49,4 +56,6 @@
     <% } %>
 
   </div>
+    <% } %>
+
 </div>

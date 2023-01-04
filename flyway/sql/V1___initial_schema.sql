@@ -34,8 +34,6 @@ CREATE TABLE question_answers (
 
 CREATE UNIQUE INDEX ON users((lower(email)));
 
-INSERT INTO users (email, password, admin)
-  VALUES ('admin@admin.com','$2a$10$IML8QCf6xA.alRbW.CG5PuvYc3Qs94vJvoTwbsSehs8s515cUMuZa', true);
+INSERT INTO users (email, password, admin) VALUES ('admin@admin.com','$2a$10$IML8QCf6xA.alRbW.CG5PuvYc3Qs94vJvoTwbsSehs8s515cUMuZa', true);
 
-INSERT INTO topics (user_id, name)
-  VALUES ((SELECT id FROM users WHERE email = 'admin@admin.com'), 'Testi topic');
+ INSERT INTO topics (user_id, name) VALUES ((SELECT id FROM users WHERE email = 'admin@admin.com'), 'Testi topic');
